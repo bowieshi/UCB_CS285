@@ -1,0 +1,45 @@
+/home/astar/anaconda3/envs/cs285/lib/python3.10/site-packages/gym/envs/registration.py:593: UserWarning: [33mWARN: The environment MsPacmanNoFrameskip-v0 is out of date. You should consider upgrading to version `v4`.[0m
+  logger.warn(
+A.L.E: Arcade Learning Environment (version 0.7.5+db37282)
+[Powered by Stella]
+/home/astar/anaconda3/envs/cs285/lib/python3.10/site-packages/gym/core.py:317: DeprecationWarning: [33mWARN: Initializing wrapper in old step API which returns one bool instead of two. It is recommended to set `new_step_api=True` to use new step API. This will be the default behaviour in future.[0m
+  deprecation(
+/home/astar/anaconda3/envs/cs285/lib/python3.10/site-packages/gym/wrappers/step_api_compatibility.py:39: DeprecationWarning: [33mWARN: Initializing environment in old step API which returns one bool instead of two. It is recommended to set `new_step_api=True` to use new step API. This will be the default behaviour in future.[0m
+  deprecation(
+/home/astar/anaconda3/envs/cs285/lib/python3.10/site-packages/gym/utils/passive_env_checker.py:227: DeprecationWarning: [33mWARN: Core environment is written in old step API which returns one bool instead of two. It is recommended to rewrite the environment with new step API. [0m
+  logger.deprecation(
+/home/astar/anaconda3/envs/cs285/lib/python3.10/site-packages/gym/utils/passive_env_checker.py:233: DeprecationWarning: `np.bool8` is a deprecated alias for `np.bool_`.  (Deprecated NumPy 1.24)
+  if not isinstance(done, (bool, np.bool8)):
+########################
+logging outputs to  /mnt/disk2/bowieshi/inno1_remote/UCB_CS_285/homework_fall2023/hw3/cs285/scripts/../../data/hw3_dqn_dqn_MsPacmanNoFrameskip-v0_d0.99_tu2000_lr0.0001_doubleq_clip10.0_09-03-2024_22-42-14
+########################
+Using GPU id 0
+  0%|          | 0/1000000 [00:00<?, ?it/s]  0%|          | 0/1000000 [00:09<?, ?it/s]
+Traceback (most recent call last):
+  File "/mnt/disk2/bowieshi/inno1_remote/UCB_CS_285/homework_fall2023/hw3/cs285/scripts/run_hw3_dqn.py", line 206, in <module>
+    main()
+  File "/mnt/disk2/bowieshi/inno1_remote/UCB_CS_285/homework_fall2023/hw3/cs285/scripts/run_hw3_dqn.py", line 202, in main
+    run_training_loop(config, logger, args)
+  File "/mnt/disk2/bowieshi/inno1_remote/UCB_CS_285/homework_fall2023/hw3/cs285/scripts/run_hw3_dqn.py", line 143, in run_training_loop
+    trajectories = utils.sample_n_trajectories(
+  File "/home/astar/bowieshi/inno1_remote/UCB_CS_285/homework_fall2023/hw3/cs285/infrastructure/utils.py", line 104, in sample_n_trajectories
+    traj = sample_trajectory(env, policy, max_length, render)
+  File "/home/astar/bowieshi/inno1_remote/UCB_CS_285/homework_fall2023/hw3/cs285/infrastructure/utils.py", line 41, in sample_trajectory
+    next_ob, rew, done, info = env.step(ac)
+  File "/home/astar/anaconda3/envs/cs285/lib/python3.10/site-packages/gym/wrappers/frame_stack.py", line 177, in step
+    self.env.step(action), True
+  File "/home/astar/anaconda3/envs/cs285/lib/python3.10/site-packages/gym/wrappers/atari_preprocessing.py", line 123, in step
+    self.env.step(action), True
+  File "/home/astar/anaconda3/envs/cs285/lib/python3.10/site-packages/gym/wrappers/record_episode_statistics.py", line 113, in step
+    ) = step_api_compatibility(self.env.step(action), True, self.is_vector_env)
+  File "/home/astar/anaconda3/envs/cs285/lib/python3.10/site-packages/gym/wrappers/time_limit.py", line 60, in step
+    self.env.step(action),
+  File "/home/astar/anaconda3/envs/cs285/lib/python3.10/site-packages/gym/wrappers/order_enforcing.py", line 37, in step
+    return self.env.step(action)
+  File "/home/astar/anaconda3/envs/cs285/lib/python3.10/site-packages/gym/wrappers/step_api_compatibility.py", line 52, in step
+    step_returns = self.env.step(action)
+  File "/home/astar/anaconda3/envs/cs285/lib/python3.10/site-packages/gym/wrappers/env_checker.py", line 39, in step
+    return self.env.step(action)
+  File "/home/astar/anaconda3/envs/cs285/lib/python3.10/site-packages/gym/envs/atari/environment.py", line 238, in step
+    reward += self.ale.act(action)
+KeyboardInterrupt

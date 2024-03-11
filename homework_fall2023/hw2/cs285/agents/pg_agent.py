@@ -136,10 +136,6 @@ class PGAgent(nn.Module):
 
             if self.gae_lambda is None:
                 # TODO: if using a baseline, but not GAE, what are the advantages?
-                # q_values_mean = q_values.mean()
-                # q_values_std = q_values.std()
-                # q_values_normed = (q_values - q_values_mean) / (q_values_std + 1e-8)
-                # advantages = q_values_normed - values
                 advantages = q_values - values
             else:
                 # TODO: implement GAE
@@ -153,7 +149,8 @@ class PGAgent(nn.Module):
                     # TODO: recursively compute advantage estimates starting from timestep T.
                     # HINT: use terminals to handle edge cases. terminals[i] is 1 if the state is the last in its
                     # trajectory, and 0 otherwise.
-                    pass
+                    sigma = rewards[i] + (1 - terminals[i]) * self.gamma * values[i+1] - values[i]
+                    advantages[i] = sigma + self.gamma * self.gae_lambda * advantages[i+1]
 
                 # remove dummy ad vantage
                 advantages = advantages[:-1]
