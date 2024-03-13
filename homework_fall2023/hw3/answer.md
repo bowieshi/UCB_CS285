@@ -54,3 +54,116 @@ python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/mspacman.yaml
 ```
 ![DQN-MsPacman.png](imgs%2FDQN-MsPacman.png)
 
+
+## Soft-Actor-Critic learning
+
+test first section(without any trick):
+```shell
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/sanity_pendulum.yaml
+```
+
+### 3.1.3 Actor with REINFORCE
+
+#### Testing this section
+
+Train an agent on InvertedPendulum-v4 using sanity_invertedpendulum_reinforce.yaml. You should achieve reward close to 1000, which corresponds to staying upright for all time steps.
+
+scripts:
+```shell
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/sanity_invertedpendulum_reinforce.yaml
+```
+![SAC_test_313.png](imgs%2FSAC_test_313.png)
+
+#### Deliverable 1
+
+Train an agent on HalfCheetah-v4 using the provided config (halfcheetah_reinforce1.yaml). Note
+that this configuration uses only one sampled action per training example.
+
+scripts:
+```shell
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reinforce1.yaml
+```
+
+[To be run]
+
+#### Deliverable 2
+
+Train another agent with halfcheetah_reinforce_10.yaml. This configuration takes many samples
+from the actor for computing the REINFORCE gradient (we’ll call this REINFORCE-10, and the singlesample version REINFORCE-1). Plot the results (evaluation return over time) on the same axes as the
+single-sample REINFORCE. Compare and explain your results.
+
+scripts:
+```shell
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reinforce_10.yaml
+```
+
+[To be run]
+
+### 3.1.4 Actor with REPARAMETRIZE
+
+#### Testing this section
+
+Make sure you can solve InvertedPendulum-v4 (use sanity_invertedpendulum_reparametrize.yaml) and achieve similar reward to the REINFORCE case.
+
+```shell
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/sanity_invertedpendulum_reparametrize.yaml
+```
+
+![SAC_test_314.png](imgs%2FSAC_test_314.png)
+
+#### Deliverable 1
+
+Train (once again) on HalfCheetah-v4 with halfcheetah_reparametrize.yaml. Plot results for all
+three gradient estimators (REINFORCE-1, REINFORCE-10 samples, and REPARAMETRIZE) on the
+same set of axes, with number of environment steps on the x-axis and evaluation return on the y-axis.
+
+scripts:
+```shell
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reparametrize.yaml
+```
+
+[To be run]
+
+#### Deliverable 2
+
+Train an agent for the Humanoid-v4 environment with humanoid_sac.yaml and plot results
+
+scripts:
+```shell
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/humanoid_sac.yaml
+```
+
+[To be run]
+
+### 3.1.5 Stabilizing Target Values
+
+#### Deliverable 1
+
+Run single-Q, double-Q, and clipped double-Q on Hopper-v4 using the corresponding configuration files.
+Which one works best? Plot the logged eval_return from each of them as well as q_values. Discuss
+how these results relate to overestimation bias.
+
+```shell
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/hopper.yaml
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/hopper_doubleq.yaml
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/hopper_clipq.yaml
+```
+
+[To be run]
+
+#### Deliverable 2
+
+Pick the best configuration (single-Q/double-Q/clipped double-Q, or REDQ if you implement it) and
+run it on Humanoid-v4 using humanoid.yaml (edit the config to use the best option). You can truncate it
+after 500K environment steps. If you got results from the humanoid environment in the last homework,
+plot them together with environment steps on the x-axis and evaluation return on the y-axis. Otherwise,
+we will provide a humanoid log file that you can use for comparison. How do the off-policy and on-policy
+algorithms compare in terms of sample efficiency? Note: if you’d like to run training to completion (5M
+steps), you should get a proper, walking humanoid! You can run with videos enabled by using -nvid 1.
+If you run with videos, you can strip videos from the logs for submission with this script.
+
+```shell
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/humanoid.yaml
+```
+
+[To be run]
