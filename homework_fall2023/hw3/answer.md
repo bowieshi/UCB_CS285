@@ -1,5 +1,10 @@
 # Homework 3
 
+please add this path before running:
+```shell
+export PYTHONPATH="${PYTHONPATH}:/home/astar/bowieshi/inno1_remote/UCB_CS285/homework_fall2023/hw3" 
+```
+
 ## Deep Q-learning
 
 ### Deliver 1: DQN on CartPole-v1
@@ -94,7 +99,7 @@ single-sample REINFORCE. Compare and explain your results.
 
 scripts:
 ```shell
-python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reinforce_10.yaml
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reinforce10.yaml
 ```
 
 [To be run]
@@ -121,8 +126,7 @@ scripts:
 ```shell
 python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reparametrize.yaml
 ```
-
-[To be run]
+![SAC_deliver1_314.png](imgs%2FSAC_deliver1_314.png)
 
 #### Deliverable 2
 
@@ -130,9 +134,17 @@ Train an agent for the Humanoid-v4 environment with humanoid_sac.yaml and plot r
 
 scripts:
 ```shell
-python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/humanoid_sac.yaml
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/humanoid.yaml -nvid 1
 ```
 
+If you meet such error:
+```shell
+mujoco.Fatalerror: gladLoadGL error
+```
+add the environment variable in your remote server (my linux)
+```shell
+export MUJOCO_GL=egl
+```
 [To be run]
 
 ### 3.1.5 Stabilizing Target Values

@@ -51,7 +51,7 @@ def run_training_loop(config: dict, logger: Logger, args: argparse.Namespace):
         fps = 1 / env.model.opt.timestep
     else:
         fps = env.env.metadata["render_fps"]
-
+    print("fps={}".format(fps))
     # initialize agent
     agent = SoftActorCritic(
         ob_shape,
@@ -134,7 +134,7 @@ def run_training_loop(config: dict, logger: Logger, args: argparse.Namespace):
                     ep_len,
                     render=True,
                 )
-
+                print("video is logging...")
                 logger.log_paths_as_videos(
                     video_trajectories,
                     step,
