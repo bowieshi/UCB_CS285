@@ -226,6 +226,7 @@ class SoftActorCritic(nn.Module):
             next_qs = ...
             """
             # Sample from the actor
+            # print("next_obs: ", type(next_obs))
             next_action_distribution: torch.distributions.Distribution = self.actor(
                 next_obs
             )

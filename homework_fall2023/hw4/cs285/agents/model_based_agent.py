@@ -231,17 +231,36 @@ class ModelBasedAgent(nn.Module):
                 # TODO(student): implement the CEM algorithm
                 # HINT: you need a special case for i == 0 to initialize
                 # the elite mean and std
-                if i != 0:
+                if i == 0:
+                    action_sequences = np.random.uniform(
+                        self.env.action_space.low,
+                        self.env.action_space.high,
+                        size=(self.mpc_num_action_sequences, self.mpc_horizon, self.ac_dim),
+                    )
+                    rewards = self.evaluate_action_sequences(obs, action_sequences)
+                    # print("reward: ", rewards.shape)
+                    elites_indices = np.argsort(rewards)[-self.cem_num_elites:]
+                    others_indices = np.argsort(rewards)[:-self.cem_num_elites]
+                    elites_action = action_sequences[elites_indices]
+                    others_action = action_sequences[others_indices]
+
+                    elite_mean = self.cem_alpha * np.mean(elites_action, axis=0) + (1 - self.cem_alpha) * np.mean(others_action, axis=0)
+                    elite_std = self.cem_alpha * np.std(elites_action, axis=0) + (1 - self.cem_alpha) * np.std(others_action, axis=0)
+
+                else:
                     action_sequences = np.random.normal(elite_mean, elite_std, size=(self.mpc_num_action_sequences, self.mpc_horizon, self.ac_dim))
+                    # print(obs.shape, action_sequences.shape)
+                    rewards = self.evaluate_action_sequences(obs, action_sequences)
+                    # print("reward: ", rewards.shape)
+                    elites_indices = np.argsort(rewards)[-self.cem_num_elites:]
+                    others_indices = np.argsort(rewards)[:-self.cem_num_elites]
+                    elites_action = action_sequences[elites_indices]
+                    others_action = action_sequences[others_indices]
+                    # print("Elite action: ", elites_action.shape)
 
-                rewards = self.evaluate_action_sequences(obs, action_sequences)
-                elites_indices = np.argsort(rewards)[-self.cem_num_elites:]
-                others_indices = np.argsort(rewards)[:-self.cem_num_elites]
-                elites_action = action_sequences[elites_indices]
-                others_action = action_sequences[others_indices]
-
-                elite_mean = self.cem_alpha * np.mean(elites_action, axis=0)[0] + (1 - self.cem_alpha) * np.mean(others_action, axis=0)[0]
-                elite_std = self.cem_alpha * np.std(elites_action, axis=0)[0] + (1 - self.cem_alpha) * np.std(others_action, axis=0)[0]
-            return elite_mean
+                    elite_mean = self.cem_alpha * np.mean(elites_action, axis=0) + (1 - self.cem_alpha) * np.mean(others_action, axis=0)
+                    elite_std = self.cem_alpha * np.std(elites_action, axis=0) + (1 - self.cem_alpha) * np.std(others_action, axis=0)
+            # print("Elite mean: ", elite_mean.shape)
+            return elite_mean[0]
         else:
             raise ValueError(f"Invalid MPC strategy '{self.mpc_strategy}'")
