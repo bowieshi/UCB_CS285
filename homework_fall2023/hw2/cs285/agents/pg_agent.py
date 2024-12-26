@@ -150,7 +150,7 @@ class PGAgent(nn.Module):
                     # HINT: use terminals to handle edge cases. terminals[i] is 1 if the state is the last in its
                     # trajectory, and 0 otherwise.
                     sigma = rewards[i] + (1 - terminals[i]) * self.gamma * values[i+1] - values[i]
-                    advantages[i] = sigma + self.gamma * self.gae_lambda * advantages[i+1]
+                    advantages[i] = sigma + (1 - terminals[i]) * self.gamma * self.gae_lambda * advantages[i+1]
 
                 # remove dummy ad vantage
                 advantages = advantages[:-1]
